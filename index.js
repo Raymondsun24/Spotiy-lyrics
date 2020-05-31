@@ -29,12 +29,13 @@ app.get('/login/redirect', (req, res) => {
 	let auth_code = req.query.code;
 	let options = {
 		method: 'POST',
-		body: {
-			grant_type: express.urlencoded('authorization_code'),
-			code: express.urlencoded(auth_code),
-			redirect_uri: express.urlencoded(redirect_uri),
+		params: {
+			grant_type: 'authorization_code',
+			code: auth_code,
+			redirect_uri: redirect_uri,
 		},
 		headers:{
+			'Content-Type': 'application/x-www-form-urlencoded',
 			"Authorization": "Basic MjQwY2QwY2NjMjBlNDBlMDg3OTQ3ZmZhMWM3MTBiNDI6NDMxMTRhNjBlOTM3NGQwZjllN2RmYWJhMjJiYTExZTk="
 		},
 		json: true
