@@ -29,7 +29,7 @@ app.get('/login/redirect', (req, res) => {
 	let auth_code = req.query.code;
 	let options = {
 		method: 'POST',
-		data: {
+		form: {
 			grant_type: express.urlencoded('authorization_code'),
 			code: express.urlencoded(auth_code),
 			redirect_uri: express.urlencoded(redirect_uri),
