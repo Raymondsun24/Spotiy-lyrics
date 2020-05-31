@@ -41,7 +41,7 @@ app.get('/login/redirect', (req, res) => {
 		}
 	}
 	axios(options).then(response => console.log(response));
-}
+})
 
 
 const PORT = process.env.PORT || 3000;
