@@ -31,14 +31,13 @@ app.get('/login/redirect', (req, res) => {
 	let encoded = encodeURIComponent(`${my_client_id}:${my_client_secret}`);
 	let options = {
 		method: 'POST',
-		form: JSON.stringify({
+		body: JSON.stringify({
 			grant_type: 'authorization_code',
 			code: auth_code,
 			redirect_uri: redirect_uri
 		}),
-		header: {
+		headers: {
 			'Authorization': 'Basic ' + btoa(my_client_id + ':' + my_client_secret)
-			'Content-Type': 'application/x-www-form-urlencoded'
 		},
 		json: true
 	}
