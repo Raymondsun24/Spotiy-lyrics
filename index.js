@@ -40,6 +40,7 @@ app.get('/login/redirect', (req, res) => {
 		}
 	}
 	fetch('https://accounts.spotify.com/api/token', options);
+	res.send(req.query);
 });
 
 app.get('/login/redirect/access', (req, res)=>{
