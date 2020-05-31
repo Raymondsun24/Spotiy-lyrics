@@ -25,22 +25,22 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/login/redirect', (req, res) => {
-	// let auth_code = req.query.code;
-	// let redirect = 'https://shrouded-escarpment-08729.herokuapp.com/login/redirect/access'
-	// let encoded = encodeURIComponent(`${my_client_id}:${my_client_secret}`);
-	// let options = {
-	// 	method: 'POST',
-	// 	body: JSON.stringify({
-	// 		grant_type: 'authorization_code',
-	// 		code: auth_code,
-	// 		redirect_uri: encodeURIComponent(redirect)
-	// 	}),
-	// 	headers: {
-	// 		Authorization: `Basic ${encoded}`
-	// 	}
-	// }
-	// fetch('https://accounts.spotify.com/api/token', options);
-	res.send(req.query.code);
+	let auth_code = req.query.code;
+	let redirect = 'https://shrouded-escarpment-08729.herokuapp.com/login/redirect/access'
+	let encoded = encodeURIComponent(`${my_client_id}:${my_client_secret}`);
+	let options = {
+		method: 'POST',
+		body: JSON.stringify({
+			grant_type: 'authorization_code',
+			code: auth_code,
+			redirect_uri: encodeURIComponent(redirect)
+		}),
+		headers: {
+			Authorization: `Basic ${encoded}`
+		}
+	}
+	fetch('https://accounts.spotify.com/api/token', options);
+	res.send(req.query);
 });
 
 app.get('/login/redirect/access', (req, res)=>{
