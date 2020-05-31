@@ -29,10 +29,10 @@ app.get('/login/redirect', (req, res) => {
 	let auth_code = req.query.code;
 	let options = {
 		method: 'POST',
-		form: {
+		data: {
 			grant_type: 'authorization_code',
 			code: auth_code,
-			redirect_uri: encodeURIComponent(redirect_uri),
+			redirect_uri: "redirect_uri",
 		},
 		headers:{
 			"Content-Type": "application/x-www-form-urlencoded",
