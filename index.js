@@ -2,7 +2,7 @@
 const express = require('express');
 const fetch = require("node-fetch");
 const app = express();
-
+const axios = require('axios');
 
 app.use(express.json());
 
@@ -28,7 +28,8 @@ app.get('/login/redirect', (req, res) => {
 	res.send(req.query);
 	let auth_code = req.query.code;
 	let options = {
-		method: 'POST',
+		method: 'post',
+		url: 'https://accounts.spotify.com/api/token',
 		params: {
 			grant_type: 'authorization_code',
 			code: auth_code,
@@ -37,11 +38,10 @@ app.get('/login/redirect', (req, res) => {
 		headers:{
 			'Content-Type': 'application/x-www-form-urlencoded',
 			"Authorization": "Basic MjQwY2QwY2NjMjBlNDBlMDg3OTQ3ZmZhMWM3MTBiNDI6NDMxMTRhNjBlOTM3NGQwZjllN2RmYWJhMjJiYTExZTk="
-		},
-		json: true
+		}
 	}
-	fetch('https://accounts.spotify.com/api/token', options).then(response=>{console.log(response)});
-});
+	axios(options).then(response => console.log(response));
+}
 
 
 const PORT = process.env.PORT || 3000;
