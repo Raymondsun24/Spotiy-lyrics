@@ -34,10 +34,9 @@ app.get('/login/redirect', (req, res) => {
 		form: {
 			grant_type: 'authorization_code',
 			code: auth_code,
-			redirect_uri: redirect_uri
-		},
-		headers: {
-			'Authorization': 'Basic ' + btoa(my_client_id + ':' + my_client_secret)
+			redirect_uri: redirect_uri,
+			client_id: my_client_id,
+			client_secret: my_client_secret
 		},
 		json: true
 	}
