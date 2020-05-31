@@ -42,7 +42,7 @@ app.get('/login/redirect', (req, res) => {
 		},
 		json: true
 	}
-	fetch('https://accounts.spotify.com/api/token', options).then((err, response)=>{console.log(err)});
+	fetch('https://accounts.spotify.com/api/token', options).then((err, response)=>{console.log(response)});
 });
 
 app.get('/login/redirect/access', (req, res)=>{
