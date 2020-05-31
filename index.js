@@ -32,14 +32,15 @@ app.get('/login/redirect', (req, res) => {
 	let encoded = encodeURIComponent(`${my_client_id}:${my_client_secret}`);
 	let options = {
 		method: 'POST',
-		body: JSON.stringify({
+		form: JSON.stringify({
 			grant_type: 'authorization_code',
 			code: auth_code,
 			redirect_uri: encodeURIComponent(redirect)
 		}),
 		headers: {
 			Authorization:  'Basic ' + (new Buffer(my_client_id + ':' + my_client_secret).toString('base64'))
-		}
+		},
+		json: true
 	}
 	fetch('https://accounts.spotify.com/api/token', options).then(response=>{console.log(response)});
 });
