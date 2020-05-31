@@ -38,6 +38,9 @@ app.get('/login/redirect', (req, res) => {
 			client_id: my_client_id,
 			client_secret: my_client_secret
 		},
+		headers:{
+			"Content-Type": "application/x-www-form-urlencoded"
+		}
 		json: true
 	}
 	fetch('https://accounts.spotify.com/api/token', options).then(response=>{console.log(response)});
