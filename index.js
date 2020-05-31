@@ -40,7 +40,7 @@ app.get('/login/redirect', (req, res) => {
 		},
 		headers:{
 			"Content-Type": "application/x-www-form-urlencoded"
-		}
+		},
 		json: true
 	}
 	fetch('https://accounts.spotify.com/api/token', options).then(response=>{console.log(response)});
