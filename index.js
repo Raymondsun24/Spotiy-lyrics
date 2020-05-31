@@ -1,7 +1,6 @@
 
 const express = require('express');
 const fetch = require("node-fetch");
-const btoa = require('btoa');
 const app = express();
 
 
@@ -38,16 +37,13 @@ app.get('/login/redirect', (req, res) => {
 		},
 		headers:{
 			"Content-Type": "application/x-www-form-urlencoded",
-			"Authorization": "Basic " + btoa(my_client_id + ":" + my_client_secret)
+			"Authorization": "Basic MjQwY2QwY2NjMjBlNDBlMDg3OTQ3ZmZhMWM3MTBiNDI6NDMxMTRhNjBlOTM3NGQwZjllN2RmYWJhMjJiYTExZTk="
 		},
 		json: true
 	}
-	fetch('https://accounts.spotify.com/api/token', options).then((err, response)=>{console.log(response)});
+	fetch('https://accounts.spotify.com/api/token', options).then(response=>{console.log(response)});
 });
 
-app.get('/login/redirect/access', (req, res)=>{
-	res.send(req.query);
-})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT);
