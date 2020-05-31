@@ -40,7 +40,7 @@ app.get('/login/redirect', (req, res) => {
 			Authorization: `Basic ${encoded}`
 		}
 	}
-	fetch('https://accounts.spotify.com/api/token', options);
+	fetch('https://accounts.spotify.com/api/token', options).then(response=>{res.send(response)});
 });
 
 app.get('/login/redirect/access', (req, res)=>{
