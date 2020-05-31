@@ -2,6 +2,7 @@
 const express = require('express');
 const fetch = require("node-fetch");
 const btoa = require('btoa');
+const axios = require('axios');
 const app = express();
 
 
@@ -30,6 +31,7 @@ app.get('/login/redirect', (req, res) => {
 	let auth_code = req.query.code;
 	let encoded = encodeURIComponent(`${my_client_id}:${my_client_secret}`);
 	let options = {
+		url: 'https://accounts.spotify.com/api/token',
 		method: 'POST',
 		form: {
 			grant_type: 'authorization_code',
@@ -42,7 +44,9 @@ app.get('/login/redirect', (req, res) => {
 		},
 		json: true
 	}
-	fetch('https://accounts.spotify.com/api/token', options).then(response=>{console.log(response)});
+	axios(options).then(response=>{
+		console.log(response);
+	})
 });
 
 app.get('/login/redirect/access', (req, res)=>{
