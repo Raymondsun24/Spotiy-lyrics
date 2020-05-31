@@ -12,18 +12,20 @@ app.get('/', (req,res)=>{
 });
 
 const my_client_id = '240cd0ccc20e40e087947ffa1c710b42';
-const redirect_uri = 'localhost:3000/login/redirect'
+const redirect_uri = 'https://shrouded-escarpment-08729.herokuapp.com/login/redirect'
 app.get('/login', function(req, res) {
+	var scopes = 'user-read-private user-read-email';
 	res.redirect('https://accounts.spotify.com/authorize' +
 	  '?response_type=code' +
+	  (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
 	  '&client_id=' + my_client_id +
 	  '&redirect_uri=' + encodeURIComponent(redirect_uri));
 });
 
 app.get('/login/redirect', (req, res) => {
-	console.log(req);
-	res.send(req);
+	res.send("recieved");
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT);
+
