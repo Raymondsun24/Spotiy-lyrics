@@ -12,6 +12,8 @@ app.get('/', (req,res)=>{
 });
 
 const my_client_id = '240cd0ccc20e40e087947ffa1c710b42';
+const my_client_secret = '43114a60e9374d0f9e7dfaba22ba11e9';
+
 const redirect_uri = 'https://shrouded-escarpment-08729.herokuapp.com/login/redirect'
 app.get('/login', function(req, res) {
 	var scopes = 'user-read-private user-read-email';
@@ -23,8 +25,26 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/login/redirect', (req, res) => {
-	res.send(req.query);
+	let auth_code = req.query.code;
+	let redirect = 'https://shrouded-escarpment-08729.herokuapp.com/login/redirect/access'
+	let encoded = encodeURIComponent(`${my_client_id}:${my_client_secret}`);
+	let options = {
+		method: 'POST',
+		body: JSON.stringify({
+			grant_type: 'authorization_code',
+			code: auth_code,
+			redirect_uri: encodeURIComponent(redirect)
+		}),
+		headers: {
+			Authorization: `Basic ${encoded}`
+		}
+	}
+	fetch('https://accounts.spotify.com/api/token', options);
 });
+
+app.get('/login/redirect/access', (req, res)=>{
+	res.send(req.query);
+})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT);
