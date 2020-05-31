@@ -23,7 +23,7 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/login/redirect', (req, res) => {
-	res.send(req);
+	res.send(req.query);
 });
 
 const PORT = process.env.PORT || 3000;
