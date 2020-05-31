@@ -37,7 +37,7 @@ app.get('/login/redirect', (req, res) => {
 			redirect_uri: redirect_uri
 		}),
 		headers: {
-			Authorization:  'Basic ' + (new Buffer(my_client_id + ':' + my_client_secret).toString('base64'))
+			Authorization:  'Basic ' + btoa(my_client_id + ':' + my_client_secret)
 		},
 		json: true
 	}
