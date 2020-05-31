@@ -1,4 +1,4 @@
-// Creating a http server using the http module
+
 const express = require('express');
 const fetch = require("node-fetch");
 
@@ -38,7 +38,7 @@ app.get('/login/redirect', (req, res) => {
 			redirect_uri: encodeURIComponent(redirect)
 		}),
 		headers: {
-			Authorization: `Basic ${encoded}`
+			Authorization:  'Basic ' + (new Buffer(my_client_id + ':' + my_client_secret).toString('base64'))
 		}
 	}
 	fetch('https://accounts.spotify.com/api/token', options).then(response=>{console.log(response)});
