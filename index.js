@@ -28,14 +28,13 @@ app.get('/login', function(req, res) {
 app.get('/login/redirect', (req, res) => {
 	res.send(req.query);
 	let auth_code = req.query.code;
-	let redirect = 'https://shrouded-escarpment-08729.herokuapp.com/login/redirect'
 	let encoded = encodeURIComponent(`${my_client_id}:${my_client_secret}`);
 	let options = {
 		method: 'POST',
 		form: JSON.stringify({
 			grant_type: 'authorization_code',
 			code: auth_code,
-			redirect_uri: encodeURIComponent(redirect)
+			redirect_uri: redirect_uri
 		}),
 		headers: {
 			Authorization:  'Basic ' + (new Buffer(my_client_id + ':' + my_client_secret).toString('base64'))
