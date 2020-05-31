@@ -27,13 +27,12 @@ app.get('/login', function(req, res) {
 app.get('/login/redirect', (req, res) => {
 	res.send(req.query);
 	let auth_code = req.query.code;
-	let encoded = encodeURIComponent(`${my_client_id}:${my_client_secret}`);
 	let options = {
 		method: 'POST',
 		form: {
 			grant_type: 'authorization_code',
 			code: auth_code,
-			redirect_uri: redirect_uri,
+			redirect_uri: encodeURIComponent(redirect_uri),
 		},
 		headers:{
 			"Content-Type": "application/x-www-form-urlencoded",
