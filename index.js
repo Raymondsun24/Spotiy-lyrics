@@ -40,7 +40,36 @@ app.get('/login/redirect', (req, res) => {
 			"Authorization": "Basic MjQwY2QwY2NjMjBlNDBlMDg3OTQ3ZmZhMWM3MTBiNDI6NDMxMTRhNjBlOTM3NGQwZjllN2RmYWJhMjJiYTExZTk="
 		}
 	}
-	axios(options).then(response => console.log(response));
+	axios(options).then(response=>{
+		console.log(response);
+		let data = response.data;
+		let access_token = data.access_token;
+		let refresh_token = data.refresh_token;
+		console.log(access_token, refresh_token);
+	});
+});
+
+app.get('/refresh_token', (req, res)=>{
+	let refresh_token = req.query.refresh_token;
+	let options = {
+		method: 'get',
+		url: 'https://accounts.spotify.com/api/token',
+		params: {
+			grant_type: 'refresh_token',
+			refresh_token: refresh_token
+		},
+		headers:{
+			'Content-Type': 'application/x-www-form-urlencoded',
+			"Authorization": "Basic MjQwY2QwY2NjMjBlNDBlMDg3OTQ3ZmZhMWM3MTBiNDI6NDMxMTRhNjBlOTM3NGQwZjllN2RmYWJhMjJiYTExZTk="
+		}
+	}
+	axios(options).then(response=>{
+		// use the access token to access the Spotify Web API
+		//       request.get(options, function(error, response, body) {
+		//         console.log(body);
+		//       });
+	});
+
 })
 
 
