@@ -41,7 +41,6 @@ app.get('/login/redirect', (req, res) => {
 		}
 	}
 	axios(options).then(response=>{
-		console.log(response);
 		let data = response.data;
 		let access_token = data.access_token;
 		let refresh_token = data.refresh_token;
@@ -51,8 +50,8 @@ app.get('/login/redirect', (req, res) => {
 			method: 'get',
          	headers: { 'Authorization': 'Bearer ' + access_token }
 		}
-		axios(options, response=>{
-			console.log(response.data);
+		axios(options, retVal=>{
+			console.log(retVal.data);
 		})
 	});
 });
