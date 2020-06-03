@@ -46,13 +46,10 @@ app.get('/login/redirect', (req, res) => {
 		let refresh_token = data.refresh_token;
 		let expires_in = data.expires_in;
 		let options = {
-			url: 'https://api.spotify.com/v1/me',
-			method: 'get',
+			method: 'GET',
          	headers: { 'Authorization': 'Bearer ' + access_token }
-		}
-		axios(options, retVal=>{
-			console.log(retVal);
-		})
+		};
+		fetch('https://api.spotify.com/v1/me', options).then(ret=>{console.log(ret)});
 	});
 });
 
