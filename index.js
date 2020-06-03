@@ -17,7 +17,7 @@ const my_client_secret = '43114a60e9374d0f9e7dfaba22ba11e9';
 
 const redirect_uri = 'https://shrouded-escarpment-08729.herokuapp.com/login/redirect'
 app.get('/login', function(req, res) {
-	var scopes = 'user-read-private user-read-email';
+	var scopes = 'user-read-playback-state';
 	res.redirect('https://accounts.spotify.com/authorize' +
 	  '?response_type=code' +
 	  (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
