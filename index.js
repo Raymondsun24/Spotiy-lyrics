@@ -14,7 +14,8 @@ app.get('/', (req,res)=>{
 
 const my_client_id = '240cd0ccc20e40e087947ffa1c710b42';
 const my_client_secret = '43114a60e9374d0f9e7dfaba22ba11e9';
-
+var access_token = '';
+var refresh_token = '';
 const redirect_uri = 'https://shrouded-escarpment-08729.herokuapp.com/login/redirect'
 app.get('/login', function(req, res) {
 	var scopes = 'user-read-playback-state user-read-currently-playing';
@@ -42,14 +43,14 @@ app.get('/login/redirect', (req, res) => {
 	}
 	axios(options).then(response=>{
 		let data = response.data;
-		let access_token = data.access_token;
-		let refresh_token = data.refresh_token;
-		let expires_in = data.expires_in;
+		access_token = data.access_token;
+		refresh_token = data.refresh_token;
+		expires_in = data.expires_in;
 		let options = {
 			method: 'GET',
          	headers: { 'Authorization': 'Bearer ' + access_token }
 		};
-		fetch('https://api.spotify.com/v1/me/player/currently-playing', options).then(ret=>{return ret.json()}).then((data)=>res.send(data.item.name));
+		fetch('https://api.spotify.com/v1/me/player/currently-playing', options).then(ret=>{return ret.json()}).then((data)=>res.send(data.item));
 	});
 });
 
