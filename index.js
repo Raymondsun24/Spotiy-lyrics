@@ -51,7 +51,7 @@ app.get('/login/redirect', (req, res) => {
          	headers: { 'Authorization': 'Bearer ' + access_token }
 		}
 		axios(options, retVal=>{
-			console.log(retVal.data);
+			console.log(retVal);
 		})
 	});
 });
