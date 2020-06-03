@@ -49,7 +49,7 @@ app.get('/login/redirect', (req, res) => {
 			method: 'GET',
          	headers: { 'Authorization': 'Bearer ' + access_token }
 		};
-		fetch('https://api.spotify.com/v1/me', options).then(ret=>{console.log(ret)});
+		fetch('https://api.spotify.com/v1/me', options).then(ret=>{console.log(ret.body)});
 	});
 });
 
