@@ -4,6 +4,7 @@ const fetch = require("node-fetch");
 const app = express();
 const axios = require('axios');
 const zlib = require("zlib");
+const getLyrics = require("simple-lyrics");
 
 app.use(express.json());
 
@@ -16,7 +17,7 @@ const my_client_id = '240cd0ccc20e40e087947ffa1c710b42';
 const my_client_secret = '43114a60e9374d0f9e7dfaba22ba11e9';
 var access_token = '';
 var refresh_token = '';
-const redirect_uri = 'https://shrouded-escarpment-08729.herokuapp.com/login/redirect'
+const redirect_uri = 'https://shrouded-escarpment-08729.herokuapp.com/callback'
 
 app.get('/')
 app.get('/login', function(req, res) {
@@ -28,7 +29,7 @@ app.get('/login', function(req, res) {
 	  '&redirect_uri=' + encodeURIComponent(redirect_uri));
 });
 
-app.get('/login/redirect', (req, res) => {
+app.get('/callback', (req, res) => {
 	let auth_code = req.query.code;
 	let options = {
 		method: 'post',
@@ -43,22 +44,17 @@ app.get('/login/redirect', (req, res) => {
 			"Authorization": "Basic MjQwY2QwY2NjMjBlNDBlMDg3OTQ3ZmZhMWM3MTBiNDI6NDMxMTRhNjBlOTM3NGQwZjllN2RmYWJhMjJiYTExZTk="
 		}
 	}
-	axios(options).then(response=>{res.send({
-		access_token: response.data.access_token,
-		refresh_token: response.data.refresh_token,
-		expires_in: response.data.expires_in
-	})});
-	// axios(options).then(response=>{
-	// 	let data = response.data;
-	// 	access_token = data.access_token;
-	// 	refresh_token = data.refresh_token;
-	// 	expires_in = data.expires_in;
-	// 	let options = {
-	// 		method: 'GET',
- //         	headers: { 'Authorization': 'Bearer ' + access_token }
-	// 	};
-	// 	fetch('https://api.spotify.com/v1/me/player/currently-playing', options).then(ret=>{return ret.json()}).then((data)=>res.send(data.item));
-	// });
+	axios(options).then(response=>{
+		let data = response.data;
+		access_token = data.access_token;
+		refresh_token = data.refresh_token;
+		expires_in = data.expires_in;
+		let options = {
+			method: 'GET',
+         	headers: { 'Authorization': 'Bearer ' + access_token }
+		};
+		fetch('https://api.spotify.com/v1/me/player/currently-playing', options).then(ret=>{return ret.json()}).then((data)=>res.send((async () => await getLyrics(data.item.name))()));
+	});
 });
 
 app.get('/refresh_token', (req, res)=>{
