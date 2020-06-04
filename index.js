@@ -4,7 +4,6 @@ const fetch = require("node-fetch");
 const app = express();
 const axios = require('axios');
 const zlib = require("zlib");
-const getLyrics = require("simple-lyrics");
 
 app.use(express.json());
 
@@ -17,9 +16,7 @@ const my_client_id = '240cd0ccc20e40e087947ffa1c710b42';
 const my_client_secret = '43114a60e9374d0f9e7dfaba22ba11e9';
 var access_token = '';
 var refresh_token = '';
-const redirect_uri = 'https://shrouded-escarpment-08729.herokuapp.com/callback'
-
-app.get('/')
+const redirect_uri = 'https://shrouded-escarpment-08729.herokuapp.com/login/redirect'
 app.get('/login', function(req, res) {
 	var scopes = 'user-read-playback-state user-read-currently-playing';
 	res.redirect('https://accounts.spotify.com/authorize' +
@@ -29,7 +26,7 @@ app.get('/login', function(req, res) {
 	  '&redirect_uri=' + encodeURIComponent(redirect_uri));
 });
 
-app.get('/callback', (req, res) => {
+app.get('/login/redirect', (req, res) => {
 	let auth_code = req.query.code;
 	let options = {
 		method: 'post',
@@ -53,7 +50,7 @@ app.get('/callback', (req, res) => {
 			method: 'GET',
          	headers: { 'Authorization': 'Bearer ' + access_token }
 		};
-		fetch('https://api.spotify.com/v1/me/player/currently-playing', options).then(ret=>{return ret.json()}).then((data)=>res.send((async () => await getLyrics(data.item.name))()));
+		fetch('https://api.spotify.com/v1/me/player/currently-playing', options).then(ret=>{return ret.json()}).then((data)=>res.send(data.item.name));
 	});
 });
 
