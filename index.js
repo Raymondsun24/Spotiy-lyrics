@@ -6,6 +6,7 @@ const axios = require('axios');
 const zlib = require("zlib");
 const solenolyrics= require("solenolyrics"); 
 const path = require("path");
+const cors = require("cors");
 app.use(express.json());
 
 app.use('/public', express.static(path.join(__dirname,'static')));
