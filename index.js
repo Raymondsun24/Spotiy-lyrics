@@ -92,11 +92,15 @@ app.get('/test', (req, res) => {res.sendFile(path.join(__dirname,'static', 'inde
 
 app.get('/abc', (req, res)=>{
 	console.log("Hello");
+	res.redirect('/redir');
+});
+
+app.get('/redir', (req, res)=>{
 	res.json({
 		access_token: access_token,
 		refresh_token: refresh_token
 	});
-});
+})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT);
