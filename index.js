@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 const app = express();
 const axios = require('axios');
 const zlib = require("zlib");
-const Genius = new (require("genius-lyrics"))("your-token-here");
+const solenolyrics= require("solenolyrics"); 
  
 app.use(express.json());
 
@@ -57,15 +57,9 @@ app.get('/login/redirect', (req, res) => {
 			if(response.statusText == "OK" && response.status >= 200 && response.status < 300){
 				return response.json();
 			}else throw new Error("No song is playing");
-		}).then((data)=>res.send(  Genius.tracks.search(data.item.id).then(results => {
-		    const song = results[0];
-		    song.lyrics()
-		    .then(lyrics => {
-		        res.send(lyrics);
-		    })
-		})
-		.catch(err => console.error(err))))
-		.catch(err=>{res.send(err.message)});
+		}).then((data)=>{
+			solenolyrics.requestLyricsFor(data.item.name).then(lyr=>{res.send(lyr)})
+		}).catch(err=>{res.send(err.message)});
 	});
 });
 
