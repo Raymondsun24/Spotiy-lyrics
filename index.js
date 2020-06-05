@@ -41,15 +41,16 @@ app.get('/login/redirect', (req, res) => {
 		}
 	}
 	axios(options).then(response=>{
-		let data = response.data;
-		let access_token = data.access_token;
-		let refresh_token = data.refresh_token;
-		let expires_in = data.expires_in;
-		let options = {
-			method: 'GET',
-         	headers: { 'Authorization': 'Bearer ' + access_token }
-		};
-		fetch('https://api.spotify.com/v1/me/player/currently-playing', options).then(ret=>{return ret.json()}).then((data)=>res.send((data.item.name)));
+		res.send(response);
+		// let data = response.data;
+		// let access_token = data.access_token;
+		// let refresh_token = data.refresh_token;
+		// let expires_in = data.expires_in;
+		// let options = {
+		// 	method: 'GET',
+  //        	headers: { 'Authorization': 'Bearer ' + access_token }
+		// };
+		// fetch('https://api.spotify.com/v1/me/player/currently-playing', options).then(ret=>{return ret.json()}).then((data)=>res.send((data.item.name)));
 	});
 });
 
