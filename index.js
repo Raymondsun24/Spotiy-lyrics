@@ -26,6 +26,7 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/login/redirect', (req, res) => {
+	res.send(req.query);
 	let auth_code = req.query.code;
 	let options = {
 		method: 'post',
@@ -49,7 +50,7 @@ app.get('/login/redirect', (req, res) => {
 			method: 'GET',
          	headers: { 'Authorization': 'Bearer ' + access_token }
 		};
-		fetch('https://api.spotify.com/v1/me/player/currently-playing', options).then(ret=>{return ret.json()}).then((data)=>res.send(data.item.name));
+		fetch('https://api.spotify.com/v1/me/player/currently-playing', options).then(ret=>{return ret.json()}).then((data)=>res.send((data.item.name)));
 	});
 });
 
