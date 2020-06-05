@@ -41,7 +41,7 @@ app.get('/login/redirect', (req, res) => {
 		}
 	}
 	axios(options).then(response=>{
-		res.send(response);
+		console.log(response);
 		// let data = response.data;
 		// let access_token = data.access_token;
 		// let refresh_token = data.refresh_token;
