@@ -4,7 +4,8 @@ const fetch = require("node-fetch");
 const app = express();
 const axios = require('axios');
 const zlib = require("zlib");
-
+const getLyrics = require("simple-lyrics");
+ 
 app.use(express.json());
 
 app.get('/', (req,res)=>{
@@ -14,6 +15,9 @@ app.get('/', (req,res)=>{
 
 const my_client_id = '240cd0ccc20e40e087947ffa1c710b42';
 const my_client_secret = '43114a60e9374d0f9e7dfaba22ba11e9';
+
+var access_token = '';
+var refresh_token = '';
 
 const redirect_uri = 'https://shrouded-escarpment-08729.herokuapp.com/login/redirect'
 app.get('/login', function(req, res) {
@@ -42,8 +46,8 @@ app.get('/login/redirect', (req, res) => {
 	}
 	axios(options).then(response=>{
 		let data = response.data;
-		let access_token = data.access_token;
-		let refresh_token = data.refresh_token;
+		access_token = data.access_token;
+		refresh_token = data.refresh_token;
 		let expires_in = data.expires_in;
 		let options = {
 			method: 'GET',
@@ -53,7 +57,7 @@ app.get('/login/redirect', (req, res) => {
 			if(response.statusText == "OK" && response.status >= 200 && response.status < 300){
 				return response.json();
 			}else throw new Error("No song is playing");
-		}).then((data)=>res.send((data.item.name))).catch((err)=>res.send("No song is playing")).catch(err=>{res.send(err.message)});
+		}).then((data)=>res.send((async () => await getLyrics(data.item.name))())).catch(err=>{res.send(err.message)});
 	});
 });
 
