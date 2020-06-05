@@ -89,7 +89,8 @@ app.get('/refresh_token', (req, res)=>{
 app.post('/test', (req, res)=>{
 	console.log("hhh");
 	res.json({
-		msg: 'Hello'
+		msg: 'Hello',
+		hello: true
 	});
 });
 
