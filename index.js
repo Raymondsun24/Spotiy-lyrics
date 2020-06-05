@@ -49,10 +49,11 @@ app.get('/login/redirect', (req, res) => {
 			method: 'GET',
          	headers: { 'Authorization': 'Bearer ' + access_token }
 		};
-		fetch('https://api.spotify.com/v1/me/player/currently-playing', options).then(ret=>{
-			console.log(ret);
-			return ret.json()
-		}).then((data)=>res.send((data.item.name))).catch((err)=>res.send("No song is playing"));
+		fetch('https://api.spotify.com/v1/me/player/currently-playing', options).then(response=>{
+			if(response.statusText == "OK" && response.status >= 200 && response.status < 300){
+				return response.json();
+			}else throw new Error("No song is playing");
+		}).then((data)=>res.send((data.item.name))).catch((err)=>res.send("No song is playing")).catch(err=>{res.send(err.message)});
 	});
 });
 
