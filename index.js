@@ -86,8 +86,11 @@ app.get('/refresh_token', (req, res)=>{
 
 })
 
-app.get('/test', (req, res)=>{
-	res.send('Hello');
+app.post('/test', (req, res)=>{
+	console.log("hhh");
+	res.json({
+		msg: 'Hello'
+	});
 });
 
 const PORT = process.env.PORT || 3000;
