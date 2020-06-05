@@ -52,7 +52,7 @@ app.get('/login/redirect', (req, res) => {
 		fetch('https://api.spotify.com/v1/me/player/currently-playing', options).then(ret=>{
 			console.log(ret);
 			return ret.json()
-		}).then((data)=>res.send((data.item.name)));
+		}).then((data)=>res.send((data.item.name))).catch((err)=>res.send("No song is playing"));
 	});
 });
 
