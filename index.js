@@ -26,7 +26,6 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/login/redirect', (req, res) => {
-	res.send(req.query);
 	let auth_code = req.query.code;
 	let options = {
 		method: 'post',
