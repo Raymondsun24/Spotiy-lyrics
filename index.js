@@ -5,8 +5,10 @@ const app = express();
 const axios = require('axios');
 const zlib = require("zlib");
 const solenolyrics= require("solenolyrics"); 
- 
+const path = require("path");
 app.use(express.json());
+
+app.use('/public', express.static(path.join(__dirname,'static')));
 
 app.get('/', (req,res)=>{
     res.send(JSON.stringify({status:200,
@@ -86,11 +88,13 @@ app.get('/refresh_token', (req, res)=>{
 
 })
 
+app.get('/test', (req, res) => {res.sendFile(path.join(__dirname,'static', 'index.html'))});
+
 app.post('/test', (req, res)=>{
-	console.log("hhh");
+	console.log("Hello");
 	res.json({
-		msg: 'Hello',
-		hello: true
+		access_token: access_token,
+		refresh_token: refresh_token
 	});
 });
 

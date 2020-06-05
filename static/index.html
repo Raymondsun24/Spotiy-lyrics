@@ -1,0 +1,18 @@
+<!DOCTYPE h<!DOCTYPE html>
+<body>
+<div>
+  <p id="info"> </p>
+</div>
+<script>
+var d = document.getElementById('info');
+const options ={
+	method: 'GET',
+	headers: {
+		'Content-Type': 'application/json',
+	}
+}
+
+fetch('/login', options).then(response=>{return response.json()}).then(data=>console.log(data));
+
+</script>
+</body>
