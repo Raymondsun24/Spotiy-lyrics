@@ -90,7 +90,7 @@ app.get('/refresh_token', (req, res)=>{
 
 app.get('/test', (req, res) => {res.sendFile(path.join(__dirname,'static', 'index.html'))});
 
-app.post('/test', (req, res)=>{
+app.get('/abc', (req, res)=>{
 	console.log("Hello");
 	res.json({
 		access_token: access_token,
