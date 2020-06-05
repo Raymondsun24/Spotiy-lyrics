@@ -7,7 +7,7 @@ const zlib = require("zlib");
 const solenolyrics= require("solenolyrics"); 
 const path = require("path");
 const cors = require("cors");
-app.use(express.json());
+app.use(express.json()).use(cors());
 
 app.use('/public', express.static(path.join(__dirname,'static')));
 
@@ -96,12 +96,6 @@ app.get('/abc', (req, res)=>{
 	res.redirect('/redir');
 });
 
-app.get('/redir', (req, res)=>{
-	res.json({
-		access_token: access_token,
-		refresh_token: refresh_token
-	});
-})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT);
