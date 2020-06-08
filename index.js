@@ -101,7 +101,7 @@ app.post('/lyrics', (req, res)=>{
 		}else throw new Error("No song is playing");
 	}).then((data)=>{
 		solenolyrics.requestLyricsFor(data.item.name).then(lyr=>{res.send(JSON.stringiy(lyr))})
-	}).catch(err=>{res.send(err.message)});
+	}).catch(err=>{res.send(JSON.stringify(err.message))});
 })
 
 app.get('/test', (req, res) => {res.sendFile(path.join(__dirname,'static', 'index.html'))});
