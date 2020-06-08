@@ -24,6 +24,17 @@ function parser(url){
 }
 
 const result = parser(req);
-d.innerHTML = JSON.stringify(result);
+let requests_str = url.split('?')[1];
+let options = {
+    method: 'POST',
+    headers:{
+        'Content-Type': 'application/json'
+    }
+}
+fetch('/lyrics', options).then(response=>{
+    return response.json()
+}).then(data=>{
+    d.innerHTML = JSON.stringify(result);
+})
 </script>
 </body>

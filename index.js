@@ -57,19 +57,6 @@ app.get('/login/redirect', (req, res) => {
             access_token: access_token,
             refresh_token: refresh_token
 		}));
-		
-		// Do the request here
-		// let options = {
-		// 	method: 'GET',
-  //        	headers: { 'Authorization': 'Bearer ' + access_token }
-		// };
-		// fetch('https://api.spotify.com/v1/me/player/currently-playing', options).then(response=>{
-		// 	if(response.statusText == "OK" && response.status >= 200 && response.status < 300){
-		// 		return response.json();
-		// 	}else throw new Error("No song is playing");
-		// }).then((data)=>{
-		// 	solenolyrics.requestLyricsFor(data.item.name).then(lyr=>{res.send(lyr)})
-		// }).catch(err=>{res.send(err.message)});
 	});
 });
 
@@ -100,9 +87,22 @@ app.get('/lyrics', (req, res)=>{
 	res.sendFile(path.join(__dirname,'static', 'lyrics.html'));
 });
 
-// app.post('/lyrics', (req, res)=>{
-// 	req.query.
-// })
+app.post('/lyrics', (req, res)=>{
+	const access_token = req.query.access_token;
+
+	// Do the request here
+	let options = {
+		method: 'GET',
+		headers: { 'Authorization': 'Bearer ' + access_token }
+	};
+	fetch('https://api.spotify.com/v1/me/player/currently-playing', options).then(response=>{
+		if(response.statusText == "OK" && response.status >= 200 && response.status < 300){
+			return response.json();
+		}else throw new Error("No song is playing");
+	}).then((data)=>{
+		solenolyrics.requestLyricsFor(data.item.name).then(lyr=>{res.send(lyr)})
+	}).catch(err=>{res.send(err.message)});
+})
 
 app.get('/test', (req, res) => {res.sendFile(path.join(__dirname,'static', 'index.html'))});
 
