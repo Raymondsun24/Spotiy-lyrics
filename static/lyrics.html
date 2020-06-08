@@ -31,7 +31,7 @@ let options = {
         'Content-Type': 'application/json'
     }
 }
-fetch('/lyrics', options).then(response=>{
+fetch('/lyrics?'+requests_str, options).then(response=>{
     return response.json()
 }).then(data=>{
     d.innerHTML = JSON.stringify(result);
