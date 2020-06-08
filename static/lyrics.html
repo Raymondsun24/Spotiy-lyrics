@@ -37,8 +37,7 @@ fetch('/lyrics?'+requests_str, options).then(response=>{
     console.log(data);
     let p = data.split(/\[.*\]/);
     p.forEach(x=>{
-        d.innerHTML += x
-        d.innerHTML += '/n'
+        d.innerHTML += x;
     });
 })
 </script>
