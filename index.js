@@ -52,7 +52,7 @@ app.get('/login/redirect', (req, res) => {
 		let expires_in = data.expires_in;
 
 		// Send the tokens to the web browser
-		res.redirect('/lyrics' +
+		res.redirect('/lyrics?' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
