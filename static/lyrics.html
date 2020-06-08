@@ -35,7 +35,7 @@ fetch('/lyrics?'+requests_str, options).then(response=>{
     return response.json();
 }).then(data=>{
     console.log(data);
-    // d.innerHTML = JSON.stringify(data);
+    d.innerHTML = data;
 })
 </script>
 </body>
