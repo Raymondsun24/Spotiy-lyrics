@@ -24,7 +24,7 @@ function parser(url){
 }
 
 const result = parser(req);
-let requests_str = url.split('?')[1];
+let requests_str = req.split('?')[1];
 let options = {
     method: 'POST',
     headers:{
