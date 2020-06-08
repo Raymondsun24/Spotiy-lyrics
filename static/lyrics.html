@@ -35,7 +35,8 @@ fetch('/lyrics?'+requests_str, options).then(response=>{
     return response.json();
 }).then(data=>{
     console.log(data);
-    d.innerHTML = data;
+    let p = data.split(/^[$]/);
+    d.innerHTML = JSON.stringify(p);
 })
 </script>
 </body>
