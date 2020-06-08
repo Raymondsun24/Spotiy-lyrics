@@ -3,10 +3,27 @@
 <div>
   <p id="info"> </p>
 </div>
-<script data-main="scripts/main" src="scripts/require.js"></script>
 <script>
 var d = document.getElementById('info');
 const req = window.location.href;
 
+// This function parses the url to get the requests params
+function parser(url){
+    let components = url.split('?');
+    let requests_str = components[1];
+    let params = requests_str.split('&');
+    let result = Array();
+    params.forEach(i=>{
+        let qa = i.split('=');
+        let temp = Array();
+        temp.push(qa[0]);
+        temp.push(qa[1]);
+        result.push(temp);
+    });
+    return result;
+}
+
+const result = parser(req);
+console.log(result);
 </script>
 </body>

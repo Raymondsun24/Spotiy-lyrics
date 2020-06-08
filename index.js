@@ -56,7 +56,8 @@ app.get('/login/redirect', (req, res) => {
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
-        }));
+		}));
+		
 		// Do the request here
 		// let options = {
 		// 	method: 'GET',
@@ -97,7 +98,11 @@ app.get('/refresh_token', (req, res)=>{
 
 app.get('/lyrics', (req, res)=>{
 	res.sendFile(path.join(__dirname,'static', 'lyrics.html'));
-})
+});
+
+// app.post('/lyrics', (req, res)=>{
+// 	req.query.
+// })
 
 app.get('/test', (req, res) => {res.sendFile(path.join(__dirname,'static', 'index.html'))});
 
