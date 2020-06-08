@@ -32,7 +32,7 @@ let options = {
     }
 }
 fetch('/lyrics?'+requests_str, options).then(response=>{
-    return response.json()
+    return response.json();
 }).then(data=>{
     console.log(data);
     // d.innerHTML = JSON.stringify(data);
