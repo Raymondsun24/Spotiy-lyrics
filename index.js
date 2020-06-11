@@ -15,8 +15,7 @@ app.use(express.json()).use(cors());
 app.use('/public', express.static(path.join(__dirname,'static')));
 
 app.get('/', (req,res)=>{
-    res.send(JSON.stringify({status:200,
-                            msg: 'OK'}));
+	res.redirect('/login');
 });
 
 const my_client_id = process.env.CLIENT_ID;
