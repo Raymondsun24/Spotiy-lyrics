@@ -1,4 +1,9 @@
 <!DOCTYPE h<!DOCTYPE html>
+<head>
+<style>
+p   {white-space: pre-line;}
+</style>
+</head>
 <body>
 <div>
   <p id="info" style="white-space: pre-line;"> </p>
@@ -34,10 +39,12 @@ let options = {
 fetch('/lyrics?'+requests_str, options).then(response=>{
     return response.json();
 }).then(data=>{
-    console.log(data);
-    let p = data.split(/\[.*\]/);
+    d.innerHTML = data.name;
+    let p = data.lyrics.split(/\[.*\]/);
     p.forEach(x=>{
-        d.innerHTML += x;
+        var para = document.createElement("p");
+        var node = document.createTextNode(x);
+        para.appendChild(node);
     });
 })
 </script>
