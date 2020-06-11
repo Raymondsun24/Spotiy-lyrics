@@ -8,6 +8,8 @@ const solenolyrics= require("solenolyrics");
 const path = require("path");
 const cors = require("cors");
 var querystring = require('querystring');
+require("dotenv").config();
+
 app.use(express.json()).use(cors());
 
 app.use('/public', express.static(path.join(__dirname,'static')));
@@ -17,10 +19,10 @@ app.get('/', (req,res)=>{
                             msg: 'OK'}));
 });
 
-const my_client_id = '240cd0ccc20e40e087947ffa1c710b42';
-const my_client_secret = '43114a60e9374d0f9e7dfaba22ba11e9';
+const my_client_id = process.env.CLIENT_ID;
+const my_client_secret = process.env.CLIENT_SECRET;
+const redirect_uri = process.env.REDIRECT_URI;
 
-const redirect_uri = 'https://shrouded-escarpment-08729.herokuapp.com/login/redirect'
 app.get('/login', function(req, res) {
 	var scopes = 'user-read-playback-state user-read-currently-playing';
 	res.redirect('https://accounts.spotify.com/authorize' +
@@ -42,7 +44,7 @@ app.get('/login/redirect', (req, res) => {
 		},
 		headers:{
 			'Content-Type': 'application/x-www-form-urlencoded',
-			"Authorization": "Basic MjQwY2QwY2NjMjBlNDBlMDg3OTQ3ZmZhMWM3MTBiNDI6NDMxMTRhNjBlOTM3NGQwZjllN2RmYWJhMjJiYTExZTk="
+			"Authorization": `Basic ${process.env.AUTH_CODE}`
 		}
 	}
 	axios(options).then(response=>{
@@ -71,7 +73,7 @@ app.get('/refresh_token', (req, res)=>{
 		},
 		headers:{
 			'Content-Type': 'application/x-www-form-urlencoded',
-			"Authorization": "Basic MjQwY2QwY2NjMjBlNDBlMDg3OTQ3ZmZhMWM3MTBiNDI6NDMxMTRhNjBlOTM3NGQwZjllN2RmYWJhMjJiYTExZTk="
+			"Authorization": `Basic ${process.env.AUTH_CODE}`
 		}
 	}
 	axios(options).then(response=>{
