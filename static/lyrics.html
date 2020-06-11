@@ -1,12 +1,18 @@
 <!DOCTYPE h<!DOCTYPE html>
 <head>
 <style>
-p   {white-space: pre-line;}
+P, BLOCKQUOTE {
+    font-family: Verdana;
+    font-size: 11px;
+    color: #555555;
+    line-height: 1.5;
+    letter-spacing: .25px;
+}
 </style>
 </head>
 <body>
 <div id="div1">
-  <p id="info" style="white-space: pre-line;"> </p>
+  <p id="info"> </p>
 </div>
 <script>
 var d = document.getElementById('info');
@@ -41,13 +47,13 @@ fetch('/lyrics?'+requests_str, options).then(response=>{
 }).then(data=>{
     d.innerHTML = data.name;
     let p = data.lyrics.split(/\[.*\]/);
+    var para = document.createElement("p");
+    var element = document.getElementById("div1");
     p.forEach(x=>{
-        var para = document.createElement("p");
-        var node = document.createTextNode(x);
+        let node = document.createTextNode(x);
         para.appendChild(node);
-        var element = document.getElementById("div1");
-        element.appendChild(para);
     });
+    element.appendChild(para);
 })
 </script>
 </body>
