@@ -5,7 +5,7 @@ p   {white-space: pre-line;}
 </style>
 </head>
 <body>
-<div>
+<div id="div1">
   <p id="info" style="white-space: pre-line;"> </p>
 </div>
 <script>
@@ -45,6 +45,8 @@ fetch('/lyrics?'+requests_str, options).then(response=>{
         var para = document.createElement("p");
         var node = document.createTextNode(x);
         para.appendChild(node);
+        var element = document.getElementById("div1");
+        element.appendChild(para);
     });
 })
 </script>
