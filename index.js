@@ -6,8 +6,12 @@ const axios = require('axios');
 const zlib = require("zlib");
 const solenolyrics= require("solenolyrics"); 
 const path = require("path");
-const cors = require("cors");
+// const cors = require("cors");
 var querystring = require('querystring');
+// const Server = require('socket.io');
+// const io = new Server();
+
+// app.use(cors());
 require("dotenv").config();
 
 app.use(express.json()).use(cors());
